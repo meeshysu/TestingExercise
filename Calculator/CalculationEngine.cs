@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Calculator
@@ -10,20 +11,23 @@ namespace Calculator
         {
             try
             {
-                var splitNumbers = stuffToCalculate.Split("+");
-                int firstNumber = int.Parse(splitNumbers[0]);
-                int secondNumber = int.Parse(splitNumbers[1]);
+                var splitNumbers = stuffToCalculate.Split("+")
+                    .Select(int.Parse);
 
-                return firstNumber + secondNumber;
+                return splitNumbers.Sum();
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
                 throw new InvalidInputException();
             }
-            //another way could be 
-            //var splitNumbers = stuffToCalculate.Split("+")
-                //.Select(int.Parse).ToArray();
-            //return splitNumbers[0] + splitNumbers[1]
 ;        }
     }
 }
+
+//another way could be 
+//var splitNumbers = stuffToCalculate.Split("+");
+//int firstNumber = int.Parse(splitNumbers[0]);
+//int secondNumber = int.Parse(splitNumbers[1]);
+
+
+//                return firstNumber + secondNumber;
